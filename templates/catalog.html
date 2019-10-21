@@ -4,11 +4,18 @@
 <h2 align="center">{{title}} - Продукты</h2>
 {%for product in info%}
 <div class="card border-secondary mb-3" style="max-width: 20rem; display: inline-block">
-  <div class="card-header" >{{product[0]}}</div>
-  <div class="card-body">
-    <h4 class="card-title">{{product[1]}}</h4>
-    <p class="card-text">{{product[2]}}</p>
-  </div>
+    <a href="/{{product[0]}}">
+        <div class="card-header">{{product[0]}}</div>
+    </a>
+    <div class="card-body">
+        <a href="/{{product[0]}}">
+            <img src="{{product[3]}}" style="width: 17.5em; margin-bottom: 10px"/>
+        </a>
+        <h4 class="card-title">{{product[1]}}</h4>
+        <p class="card-text">{{product[2]}}</p>
+        <p class="card-text"><i>{{product[4]}}</i></p>
+    </div>
 </div>
+
 {% endfor %}
 {%endblock%}

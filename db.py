@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def create_table():
     with sqlite3.connect("eSHOP.db") as conn:
         conn.execute("""CREATE TABLE users
@@ -17,4 +18,12 @@ def select(table, *args):
         cur = conn.cursor()
         data = cur.execute(f"SELECT {args} FROM {table}")
         info = data.fetchall()
+        return info
+
+
+def select_product(product):
+    with sqlite3.connect("eSHOP.db") as conn:
+        cur = conn.cursor()
+        data = cur.execute(f"SELECT * FROM products where name='{product}'")
+        info = data.fetchone()
         return info
