@@ -12,11 +12,16 @@ def create_table():
         );""")
 
 
-def select(table, *args):
+def select(table,*args, **where):
     args = ", ".join(args)
+    where = where.get('where', False)
+    if where:
+        sql_req = f"SELECT {args} FROM {table} WHERE {where}"
+    else:
+        sql_req = f'SELECT {args} FROM {table}'
     with sqlite3.connect("eSHOP.db") as conn:
         cur = conn.cursor()
-        data = cur.execute(f"SELECT {args} FROM {table}")
+        data = cur.execute(sql_req)
         info = data.fetchall()
         return info
 

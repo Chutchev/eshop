@@ -1,5 +1,8 @@
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect, render_template, url_for, flash
 import db
+from Forms import LoginForm
+
+
 
 app = Flask(__name__)
 TITLE = 'GEEKSHOP'
@@ -13,8 +16,8 @@ def home():
 
 @app.route('/catalog')
 def catalog():
-    info = db.select('products', 'name', 'price', 'description', 'image', 'category')
-    information = {'title': TITLE, 'info': info}
+    infos = db.select('products', 'name', 'price', 'description', 'image', 'category')
+    information = {'title': TITLE, 'info': infos}
     return render_template('catalog.html', **information)
 
 
@@ -36,10 +39,17 @@ def show_product(product_name):
     information = {'title': TITLE, 'info': info}
     return render_template('product.html', **information)
 
-@app.route('/admin')
+
+@app.route('/admin', methods=['GET', 'POST'])
 def admin_panel():
-    info = db.select('admins', '*')
-    return render_template('admin.html')
+    form = LoginForm.LoginForm()
+    if form.validate_on_submit():
+        login = form.username.data
+        password = form.password.data
+        true_login, true_pass = db.select('admins', 'login', 'password', where=f"login='{login}'")[0]
+        if login == true_login and password == true_pass:
+            return redirect(url_for('sales'))
+    return render_template('admin.html', title='Sign In', form=form)
 
 
 @app.route('/')

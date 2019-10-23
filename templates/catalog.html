@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 {%block content%}
 
-<h2 align="center">{{title}} - Продукты</h2>
+<h2 align="center" style="margin-bottom: 10px">{{title}} - Продукты</h2>
+<div style="width: 40%; margin-left: 40%;">
 {%for product in info%}
-<div class="card border-secondary mb-3" style="max-width: 20rem; display: inline-block">
-    <a href="/{{product[0]}}">
-        <div class="card-header">{{product[0]}}</div>
-    </a>
-    <div class="card-body">
+    <div class="card border-secondary mb-3" style="max-width: 15rem; display: inline-block">
         <a href="/{{product[0]}}">
-            <img src="{{product[3]}}" style="width: 17.5em; margin-bottom: 10px"/>
+            <div class="card-header" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">
+                {{product[0]}}
+            </div>
         </a>
-        <h4 class="card-title">{{product[1]}}</h4>
-        <p class="card-text">{{product[2]}}</p>
-        <p class="card-text"><i>{{product[4]}}</i></p>
+        <div class="card-body">
+            <!--<a href="/{{product[0]}}">
+                <img src="{{product[3]}}" style="width: 17.5em; margin-bottom: 10px"/>
+            </a>-->
+            <h4 class="card-title">{{product[1]}}</h4>
+            <p class="card-text" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">
+                {{product[2]}}</p>
+            <p class="card-text"><i>{{product[4]}}</i></p>
+        </div>
     </div>
-</div>
-
 {% endfor %}
+</div>
 {%endblock%}
