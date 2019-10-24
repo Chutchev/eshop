@@ -17,7 +17,9 @@ def home():
 @app.route('/catalog')
 def catalog():
     infos = db.select('products', 'name', 'price', 'description', 'image', 'category')
-    information = {'title': TITLE, 'info': infos}
+    categories = db.select('products', 'category')
+    categories = list(sorted(set([category[0] for category in categories])))
+    information = {'title': TITLE, 'info': infos, 'categories': categories}
     return render_template('catalog.html', **information)
 
 

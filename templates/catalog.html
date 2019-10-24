@@ -1,25 +1,62 @@
 {% extends 'base.html' %}
 {%block content%}
+<script>
+    function show_with_category(category) {
+        let blocks = document.getElementsByTagName('i');
+        let categs = document.getElementsByClassName('category');
 
+        for(let categ of categs){
+            if (categ.innerText !== category){
+                categ.firstElementChild.setAttribute('active', false)
+            }
+            else{
+                categ.firstElementChild.setAttribute('active', true)
+            }
+        }
+        for (let element of blocks){
+             element.parentNode.parentNode.parentNode.setAttribute('style','max-width: 15rem; display: inline-block');
+            if (element.innerText !== category){
+                element.parentNode.parentNode.parentNode.setAttribute('style','display: None')
+            }
+        }
+    }
+    function show_all() {
+        let elements = document.getElementsByClassName('card border-secondary mb-3');
+        for (let element of elements){
+            element.setAttribute('style', 'max-width: 15rem; display: inline-block')
+        }
+    }
+</script>
 <h2 align="center" style="margin-bottom: 10px">{{title}} - Продукты</h2>
-<div style="width: 40%; margin-left: 40%;">
-{%for product in info%}
-    <div class="card border-secondary mb-3" style="max-width: 15rem; display: inline-block">
-        <a href="/{{product[0]}}">
-            <div class="card-header" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">
-                {{product[0]}}
-            </div>
-        </a>
-        <div class="card-body">
-            <!--<a href="/{{product[0]}}">
-                <img src="{{product[3]}}" style="width: 17.5em; margin-bottom: 10px"/>
-            </a>-->
-            <h4 class="card-title">{{product[1]}}</h4>
-            <p class="card-text" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">
-                {{product[2]}}</p>
-            <p class="card-text"><i>{{product[4]}}</i></p>
-        </div>
+<div class="row" style="margin-left: 20%">
+    <div class="col-2">
+        <h1>Товары</h1>
+        <ul>
+            {% for category in categories %}
+            <li class='category'  style="list-style-type:none;"><a href="#" id="{{category}}" onclick="show_with_category(this.innerHTML)">{{category}}</a></li>
+            {% endfor %}
+            <li class="category" style="list-style-type:none;"><a href="#" onclick="show_all()">Показать все</a></li>
+        </ul>
     </div>
-{% endfor %}
+    <div class="col-6" style="width: 40%;">
+        {%for product in info%}
+        <div class="card border-secondary mb-3" style="max-width: 15rem; display: inline-block">
+            <a href="/{{product[0]}}">
+                <div class="card-header" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">
+                    {{product[0]}}
+                </div>
+            </a>
+            <div class="card-body">
+                <!--<a href="/{{product[0]}}">
+                    <img src="{{product[3]}}" style="width: 17.5em; margin-bottom: 10px"/>
+                </a>-->
+                <h4 class="card-title">{{product[1]}}</h4>
+                <p class="card-text" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">
+                    {{product[2]}}</p>
+                <p class="card-text" id="category"><i>{{product[4]}}</i></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {%endblock%}
