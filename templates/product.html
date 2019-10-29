@@ -4,7 +4,18 @@
 <div class="container">
     <div class="card border-secondary mb-3">
         <div>
-            <img src="{{info[4]}}" alt='{{info[0]}}' style="width: 24em; float:left;" />
+            <p>
+                <img src="{{info[3]}}" alt='{{info[-2]}}' style="width: 24em; float:left;"/>
+                <div style="margin-left: 25em">
+                    <h1 id="name" name="{{info[1]}}">{{info[1]}}</h1>
+                    <h2>{{info[2]}}р/шт</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Количество" id="inputDefault" style="width: 10em;">
+                    </div>
+                    <span id="description" name="{{info[-1]}}"><i>Описание:</i> {{info[-1]}}</span><br><br>
+                    <button type="button" class="btn btn-primary btn-lg">Купить</button>
+                </div>
+            </p>
         </div>
     </div>
 </div>

@@ -15,8 +15,8 @@
     <script src="./static/js/bootstrap.bundle.js"></script>
 
 </head>
-<body>
-<div class="container">
+<body style="background: ghostwhite">
+<div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="{{url_for('catalog')}}">{{title}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
@@ -46,6 +46,9 @@
         </div>
     </nav>
 </div>
+<img src="http://i.igrotop.com/g/w/world_of_warcraft_wrath_of_the_lich_king/bg/0.jpg" />
+<div class="container" style="background: white; border: 1px solid darkgrey;">
 {% block content %}{%endblock%}
+</div>
 </body>
 </html>
