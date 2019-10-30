@@ -32,3 +32,9 @@ def select_product(product):
         data = cur.execute(f"SELECT * FROM products where name='{product}'")
         info = data.fetchone()
         return info
+
+
+def insert_to_shopping_cart(login, product, count, price, cost):
+    with sqlite3.connect("eSHOP.db") as conn:
+        conn.execute("INSERT INTO shopping_cart (user_login, product, count, cost, price)"
+                     " VALUES (?, ?, ?, ?, ?)", (login, product, count, cost, price))

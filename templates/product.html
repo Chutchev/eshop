@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
 
 {%block content%}
-<div class="container">
-    <div class="card border-secondary mb-3">
-        <div>
-            <p>
-                <img src="{{info[3]}}" alt='{{info[-2]}}' style="width: 24em; float:left;"/>
-                <div style="margin-left: 25em">
-                    <h1 id="name" name="{{info[1]}}">{{info[1]}}</h1>
-                    <h2>{{info[2]}}р/шт</h2>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Количество" id="inputDefault" style="width: 10em;">
-                    </div>
-                    <span id="description" name="{{info[-1]}}"><i>Описание:</i> {{info[-1]}}</span><br><br>
-                    <button type="button" class="btn btn-primary btn-lg">Купить</button>
-                </div>
-            </p>
+<div style="height: auto; min-height: 20em">
+    <p>
+        <img src="{{info[3]}}" alt='{{info[-2]}}' style="width: 20em; float:left;display:inline-block"/>
+    <div style="margin-left: 25em">
+        <h1 id="name" name="{{info[1]}}">{{info[1]}}</h1>
+        <h2>{{info[2]}}р/шт</h2>
+        <div class="form-group">
+            <form method="POST">
+                <input type="text" name="count" class="form-control" placeholder="Количество" id="inputDefault"
+                       style="width: 10em; display: inline-block">
+                <input type="submit" class="btn btn-primary" value="Купить">
+            </form>
         </div>
+        <span id="description" name="{{info[-1]}}"><i>Описание:</i> {{info[-1]}}</span><br><br>
     </div>
+    </p>
 </div>
 {%endblock%}

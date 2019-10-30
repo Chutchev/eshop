@@ -38,11 +38,13 @@
                     <a class="nav-link" href="{{url_for('contacts')}}">О нас</a>
                 </li>
             </ul>
-            <a class="btn btn-secondary my-2 my-sm-0" href="{{url_for('contacts')}}" role="button" style="margin-left: 2%">Корзина</a>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
+            <a class="" href="{{url_for('shopping_cart')}}" role="button" style="margin-left: 2%">
+                <img src="../static/images/korzina.png" alt="Корзина" style="width: 25px; filter: invert(100%)"/>
+            </a>
         </div>
     </nav>
 </div>
