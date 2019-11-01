@@ -1,16 +1,25 @@
 from flask import Flask, redirect, render_template, url_for, flash, request, make_response
 import db
 from Forms import LoginForm
-
+import helpers
 
 app = Flask(__name__)
 TITLE = 'GEEKSHOP'
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 
-@app.route('/registration')
+@app.route('/registration', methods=['GET', 'POST'])
 def registration():
-    pass
+    if request.method == 'POST':
+        login = request.form['login']
+        password = helpers.create_md5(request.form['password'])
+        address = request.form['address']
+        email = request.form['email']
+        name = request.form['name']
+        information = {'user_login': login, 'password': password, 'address': address, 'email': email, 'name': name}
+        db.insert_to_users(**information)
+        return redirect(url_for('login'))
+    return render_template('registration.html')
 
 
 @app.route('/home')
@@ -77,7 +86,7 @@ def login():
     form = LoginForm.LoginForm()
     if form.validate_on_submit():
         login = form.username.data
-        password = form.password.data
+        password = helpers.create_md5(form.password.data)
         try:
             true_login, true_pass = db.select('users', 'user_login', 'user_password', where=f"user_login='{login}'")[0]
         except IndexError:

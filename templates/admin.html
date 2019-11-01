@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {%block content%}
-
+    <p>Еще не зарегистрированы? <a href="{{ url_for('registration') }}">Регистрация тут!</a></p>
 <form style="width: 80%;" method="post">
     {{ form.hidden_tag() }}
     <p>

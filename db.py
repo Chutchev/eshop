@@ -38,3 +38,11 @@ def insert_to_shopping_cart(login, product, count, price, cost):
     with sqlite3.connect("eSHOP.db") as conn:
         conn.execute("INSERT INTO shopping_cart (user_login, product, count, cost, price)"
                      " VALUES (?, ?, ?, ?, ?)", (login, product, count, cost, price))
+
+
+def insert_to_users(**kwargs):
+
+    with sqlite3.connect("eSHOP.db") as conn:
+        conn.execute("INSERT INTO users (user_login, user_password, name, address, email)"
+                     " VALUES (?, ?, ?, ?, ?)", (kwargs['user_login'], kwargs['password'], kwargs['name'], kwargs['address'],
+                                                 kwargs['email']))
