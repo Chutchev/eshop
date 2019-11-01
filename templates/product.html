@@ -9,8 +9,12 @@
         <h2>{{info[2]}}р/шт</h2>
         <div class="form-group">
             <form method="POST">
+                {% if true_count %}
                 <input type="text" name="count" class="form-control" placeholder="Количество" id="inputDefault"
                        style="width: 10em; display: inline-block">
+                {% else %}
+                 <input type="text" value="" name="count" class="form-control is-invalid" id="inputInvalid" style="width: 10em; display: inline-block">
+                {% endif %}
                 <input type="submit" class="btn btn-primary" value="Купить">
             </form>
         </div>

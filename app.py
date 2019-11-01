@@ -3,10 +3,10 @@ import db
 from Forms import LoginForm
 
 
-
 app = Flask(__name__)
 TITLE = 'GEEKSHOP'
 app.config['SECRET_KEY'] = 'you-will-never-guess'
+
 
 @app.route('/home')
 def home():
@@ -37,12 +37,20 @@ def sales():
 @app.route('/<product_name>', methods=['GET', 'POST'])
 def show_product(product_name):
     info = db.select_product(product_name)
-    information = {'title': TITLE, 'info': info}
+    flag = True
+    information = {'title': TITLE, 'info': info, "true_count": flag}
     if request.method == 'POST':
-        count = request.form['count']
-        login = request.cookies.get('login')
         price = info[2]
+        login = request.cookies.get('login')
+        try:
+            count = int(request.form['count'])
+        except ValueError:
+            flag = False
+            information.update({"true_count": flag})
+            return render_template('product.html', **information)
         cost = int(price)*int(count)
+        if login is None:
+            return redirect(url_for('login'))
         db.insert_to_shopping_cart(product=product_name, login=login, count=count, cost=cost, price=price)
     return render_template('product.html', **information)
 
@@ -77,13 +85,16 @@ def login():
 def shopping_cart():
     login = request.cookies.get('login')
     information = db.select('shopping_cart', '*', where=f'user_login="{login}"')
-    print(information)
     return render_template('shopping_cart.html', information=information)
 
 
 @app.route('/')
 def pusto():
-    return redirect(url_for('login'))
+    login = request.cookies.get('login')
+    if not login:
+        return redirect(url_for('login'))
+    else:
+        return redirect(url_for('sales'))
 
 
 if __name__ == '__main__':
