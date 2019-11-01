@@ -8,6 +8,11 @@ TITLE = 'GEEKSHOP'
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 
+@app.route('/registration')
+def registration():
+    pass
+
+
 @app.route('/home')
 def home():
     return render_template('home.html', title=TITLE)
