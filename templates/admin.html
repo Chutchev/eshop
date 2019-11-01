@@ -6,10 +6,16 @@
     <p>
         {{ form.username.label }}<br>
         {{ form.username(class_="form-control", style="width: 32em") }}
+        {% if error %}
+            <span style="color: red;">Неправильный ввод поля</span>
+        {% endif %}
     </p>
     <p>
         {{ form.password.label }}<br>
         {{ form.password(class_="form-control", style="width: 32em") }}
+        {% if error %}
+            <span style="color: red;">Неправильный ввод поля</span>
+        {% endif %}
     </p>
     <p>{{ form.submit() }}</p>
 </form>

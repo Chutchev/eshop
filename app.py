@@ -78,11 +78,16 @@ def login():
     if form.validate_on_submit():
         login = form.username.data
         password = form.password.data
-        true_login, true_pass = db.select('users', 'user_login', 'user_password', where=f"user_login='{login}'")[0]
+        try:
+            true_login, true_pass = db.select('users', 'user_login', 'user_password', where=f"user_login='{login}'")[0]
+        except IndexError:
+            return render_template('admin.html', title='Sign In', form=form, error=True)
         if login == true_login and password == true_pass:
             cookies = make_response(redirect(url_for('sales')))
             cookies.set_cookie('login', login, max_age=60*60*24*7)
             return cookies
+        else:
+            return render_template('admin.html', title='Sign In', form=form, error=True)
     return render_template('admin.html', title='Sign In', form=form)
 
 
