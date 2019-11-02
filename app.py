@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for, flash, request, make_response
+from flask import Flask, redirect, render_template, url_for,  request, make_response
 import db
 from Forms import LoginForm
 import helpers
@@ -11,15 +11,15 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     if request.method == 'POST':
-        login = request.form['login']
+        user_login = request.form['login']
         password = helpers.create_md5(request.form['password'])
         address = request.form['address']
         email = request.form['email']
         name = request.form['name']
-        information = {'user_login': login, 'password': password, 'address': address, 'email': email, 'name': name}
+        information = {'user_login': user_login, 'password': password, 'address': address, 'email': email, 'name': name}
         db.insert_to_users(**information)
         return redirect(url_for('login'))
-    return render_template('registration.html')
+    return render_template('registration.html', title='Регистрация')
 
 
 @app.route('/home')
@@ -68,9 +68,13 @@ def show_product(product_name):
         db.insert_to_shopping_cart(product=product_name, login=login, count=count, cost=cost, price=price)
     return render_template('product.html', **information)
 
+@app.route('/adminpanel')
+def admin_panel():
+    return render_template('admin_panel.html', title='GEEKSHOP')
+
 
 @app.route('/admin', methods=['GET', 'POST'])
-def admin_panel():
+def admin_login():
     form = LoginForm.LoginForm()
     if form.validate_on_submit():
         login = form.username.data
