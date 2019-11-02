@@ -46,3 +46,9 @@ def insert_to_users(**kwargs):
         conn.execute("INSERT INTO users (user_login, user_password, name, address, email)"
                      " VALUES (?, ?, ?, ?, ?)", (kwargs['user_login'], kwargs['password'], kwargs['name'], kwargs['address'],
                                                  kwargs['email']))
+
+
+def drop_table(name):
+    with sqlite3.connect("eSHOP.db") as conn:
+        cur = conn.cursor()
+        cur.execute(f"DELETE FROM shopping_cart WHERE user_login={name}")
