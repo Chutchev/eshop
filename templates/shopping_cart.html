@@ -7,6 +7,7 @@
             <th scope="col">Название продукта</th>
             <th scope="col">Количество</th>
             <th scope="col">Стоимость</th>
+            <th scope="col">Статус</th>
         </tr>
         </thead>
         <tbody>
@@ -15,12 +16,13 @@
             <th scope="row">{{info[1]}}</th>
             <td>{{info[2]}}</td>
             <td>{{info[4]}}</td>
+            <td>{{info[5]}}</td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
     <form method="post">
-        <input type="button" value="Заказать" onclick="alert('Заказано!')">
+        <input type="submit" value="Заказать" onclick="alert('Заказано!')">
     </form>
 </div>
 {% endblock %}

@@ -48,7 +48,7 @@ def insert_to_users(**kwargs):
                                                  kwargs['email']))
 
 
-def drop_table(name):
+def change_status(name):
     with sqlite3.connect("eSHOP.db") as conn:
         cur = conn.cursor()
-        cur.execute(f"DELETE FROM shopping_cart WHERE user_login={name}")
+        cur.execute(f"UPDATE shopping_cart SET status='Заказано' WHERE user_login='{name}' ")

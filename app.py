@@ -108,9 +108,10 @@ def login():
 def shopping_cart():
     login = request.cookies.get('login')
     information = db.select('shopping_cart', '*', where=f'user_login="{login}"')
-    if request.method == 'post':
+    if request.method == 'POST':
         login = request.cookies.get('login')
-        db.drop_table(login)
+        db.change_status(login)
+        return redirect(url_for('shopping_cart'))
     return render_template('shopping_cart.html', information=information)
 
 
