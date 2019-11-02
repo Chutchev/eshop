@@ -46,3 +46,9 @@ def insert_to_users(**kwargs):
         conn.execute("INSERT INTO users (user_login, user_password, name, address, email)"
                      " VALUES (?, ?, ?, ?, ?)", (kwargs['user_login'], kwargs['password'], kwargs['name'], kwargs['address'],
                                                  kwargs['email']))
+
+
+def change_status(name):
+    with sqlite3.connect("eSHOP.db") as conn:
+        cur = conn.cursor()
+        cur.execute(f"UPDATE shopping_cart SET status='Заказано' WHERE user_login='{name}' ")
