@@ -70,7 +70,12 @@ def show_product(product_name):
 
 @app.route('/adminpanel')
 def admin_panel():
-    return render_template('admin_panel.html', title='GEEKSHOP')
+    is_admin = bool(request.cookies.get('admin'))
+    if is_admin:
+        products = db.select('products', '*')
+        return render_template('admin_panel.html', title='GEEKSHOP', products=products)
+    else:
+        return render_template('404.html', title="404")
 
 
 @app.route('/admin', methods=['GET', 'POST'])

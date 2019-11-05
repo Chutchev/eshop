@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <script>
-    function show_need_tab(tab){
+<script>
+    function show_need_tab(tab) {
         let active = tab;
         let element = document.getElementsByClassName('nav-link active')[0];
         element.setAttribute('class', 'nav-link'); // убрать нынешний активный элемент
@@ -13,32 +13,92 @@
         new_desc.setAttribute('class', 'tab-pane fade active show')
     }
 </script>
-    <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#add" name="add" onclick="show_need_tab(this)">Пополнить товар</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#delete" name="delete" onclick="show_need_tab(this)">Списать товар</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#products" name='products' onclick="show_need_tab(this)">Посмотреть весь товар</a>
-  </li>
+<ul class="nav nav-tabs">
     <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#admins" name='admins' onclick="show_need_tab(this)">Добавить админа</a>
-  </li>
+        <a class="nav-link" data-toggle="tab" href="#add" name="add" onclick="show_need_tab(this)">Пополнить товар</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#delete" name="delete" onclick="show_need_tab(this)">Списать
+            товар</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#products" name='products' onclick="show_need_tab(this)">Посмотреть
+            весь товар</a>
+    </li>
 </ul>
 <div id="myTabContent" class="tab-content">
-  <div class="tab-pane fade" id="add">
-      <h2>Пополнить товар</h2>
-  </div>
-  <div class="tab-pane fade active show" id="delete">
-    <h2>Списать товар</h2>
-  </div>
-    <div class="tab-pane fade" id="products">
-    <h2>Просмотреть список продуктов</h2>
+    <div class="tab-pane fade" id="add">
+        <h2>Пополнить товар</h2>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputProduct">Название продукта</label>
+                <input type="text" class="form-control" id="exampleInputProduct" aria-describedby="emailHelp"
+                       placeholder="Название продукта">
+                <small id="productHelp" class="form-text text-muted">Введите название продукта
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputDescProduct">Количество</label>
+                <textarea id="exampleInputDescProduct" class="form-control"></textarea>
+                <small id="productCountHelp" class="form-text text-muted">Введите описание продукта
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">Загрузка картинки</label>
+                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                <small id="fileHelp" class="form-text text-muted">Картинка товара</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPriceProduct">Цена продукта</label>
+                <input type="text" class="form-control" id="exampleInputPriceProduct" aria-describedby="emailHelp"
+                       placeholder="Цена продукта">
+                <small id="productPrice" class="form-text text-muted">Введите цену продукта
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputKeyWordProduct">Ключевые слова</label>
+                <input type="text" class="form-control" id="exampleInputKeyWordProduct" aria-describedby="emailHelp"
+                       placeholder="Ключевые слова">
+                <small id="productKeyWordHelp" class="form-text text-muted">Введите Ключевые слова продукта
+                </small>
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить товар</button>
+        </form>
     </div>
-<div class="tab-pane fade" id="admins">
-    <h2>Просмотреть список админов</h2>
-</div>
+    <div class="tab-pane fade active show" id="delete">
+        <h2>Списать товар</h2>
+        <form>
+            <div class="form-group">
+                <label for="exampleSelect1">Example select</label>
+                <select class="form-control" id="exampleSelect1">
+                    {% for product in products %}
+                    <option>{{product[1]}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить товар</button>
+        </form>
+    </div>
+    <div class="tab-pane fade" id="products">
+        <h2>Просмотреть список продуктов</h2>
+        <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Название продукта</th>
+            <th scope="col">Стоимость</th>
+            <th scope="col">Ключевые слова</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for info in products %}
+        <tr class="table-primary">
+            <th scope="row">{{info[1]}}</th>
+            <td>{{info[2]}}</td>
+            <td>{{info[4]}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
 </div>
 {% endblock %}
