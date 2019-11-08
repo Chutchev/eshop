@@ -68,10 +68,16 @@ def show_product(product_name):
         db.insert_to_shopping_cart(product=product_name, login=login, count=count, cost=cost, price=price)
     return render_template('product.html', **information)
 
-@app.route('/adminpanel')
+@app.route('/adminpanel', methods=['GET', 'POST'])
 def admin_panel():
     is_admin = bool(request.cookies.get('admin'))
     if is_admin:
+        if request.method == 'POST':
+            product = request.form['product']
+            try:
+                pass
+            except Exception:
+                pass
         products = db.select('products', '*')
         return render_template('admin_panel.html', title='GEEKSHOP', products=products)
     else:
@@ -86,7 +92,9 @@ def admin_login():
         password = form.password.data
         true_login, true_pass = db.select('admins', 'login', 'password', where=f"login='{login}'")[0]
         if login == true_login and password == true_pass:
-            return redirect(url_for('sales'))
+            cookies = make_response(redirect(url_for('admin_panel')))
+            cookies.set_cookie('admin', 'True', max_age=60 * 60)
+            return cookies
     return render_template('admin.html', title='Sign In', form=form)
 
 
