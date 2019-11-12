@@ -41,7 +41,6 @@ def insert_to_shopping_cart(login, product, count, price, cost):
 
 
 def insert_to_users(**kwargs):
-
     with sqlite3.connect("eSHOP.db") as conn:
         conn.execute("INSERT INTO users (user_login, user_password, name, address, email)"
                      " VALUES (?, ?, ?, ?, ?)", (kwargs['user_login'], kwargs['password'], kwargs['name'], kwargs['address'],
@@ -52,3 +51,11 @@ def change_status(name):
     with sqlite3.connect("eSHOP.db") as conn:
         cur = conn.cursor()
         cur.execute(f"UPDATE shopping_cart SET status='Заказано' WHERE user_login='{name}' ")
+
+
+def add_to_products(**kwargs):
+    print(kwargs)
+    with sqlite3.connect("eSHOP.db") as conn:
+        conn.execute("INSERT INTO products (name, price, image, category, description)"
+                     " VALUES (?, ?, ?, ?, ?)", (kwargs['name'], kwargs['price'], kwargs['image'],
+                                                 kwargs['category'], kwargs['description']))

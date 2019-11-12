@@ -29,7 +29,7 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade" id="add">
         <h2>Пополнить товар</h2>
-        <form method="post">
+        <form method="post" enctype=multipart/form-data>
             <div class="form-group">
                 <label for="exampleInputProduct">Название продукта</label>
                 <input type="text" class="form-control" name="product" id="exampleInputProduct" aria-describedby="emailHelp"
@@ -38,31 +38,31 @@
                 </small>
             </div>
             <div class="form-group">
-                <label for="exampleInputDescProduct">Количество</label>
-                <textarea id="exampleInputDescProduct" class="form-control"></textarea>
+                <label for="exampleInputDescProduct">Описание</label>
+                <textarea id="exampleInputDescProduct" name='description' class="form-control"></textarea>
                 <small id="productCountHelp" class="form-text text-muted">Введите описание продукта
                 </small>
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Загрузка картинки</label>
-                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                <input type="file" class="form-control-file" name='image' id="exampleInputFile" aria-describedby="fileHelp">
                 <small id="fileHelp" class="form-text text-muted">Картинка товара</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPriceProduct">Цена продукта</label>
-                <input type="text" class="form-control" id="exampleInputPriceProduct" aria-describedby="emailHelp"
+                <input type="text" class="form-control" name="price" id="exampleInputPriceProduct" aria-describedby="emailHelp"
                        placeholder="Цена продукта">
                 <small id="productPrice" class="form-text text-muted">Введите цену продукта
                 </small>
             </div>
             <div class="form-group">
                 <label for="exampleInputKeyWordProduct">Ключевые слова</label>
-                <input type="text" class="form-control" id="exampleInputKeyWordProduct" aria-describedby="emailHelp"
+                <input type="text" class="form-control" id="exampleInputKeyWordProduct" name="keyword" aria-describedby="emailHelp"
                        placeholder="Ключевые слова">
                 <small id="productKeyWordHelp" class="form-text text-muted">Введите Ключевые слова продукта
                 </small>
             </div>
-            <button name="add-button" type="submit" class="btn btn-primary">Добавить товар</button>
+            <input name="add-button" type="submit" class="btn btn-primary" value="Добавить товар">
         </form>
     </div>
     <div class="tab-pane fade active show" id="delete">

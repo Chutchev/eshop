@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for,  request, make_response
+from flask import Flask, redirect, render_template, url_for, request, make_response
 import db
 from Forms import LoginForm
 import helpers
@@ -62,11 +62,12 @@ def show_product(product_name):
             flag = False
             information.update({"true_count": flag})
             return render_template('product.html', **information)
-        cost = int(price)*int(count)
+        cost = int(price) * int(count)
         if login is None:
             return redirect(url_for('login'))
         db.insert_to_shopping_cart(product=product_name, login=login, count=count, cost=cost, price=price)
     return render_template('product.html', **information)
+
 
 @app.route('/adminpanel', methods=['GET', 'POST'])
 def admin_panel():
@@ -74,12 +75,16 @@ def admin_panel():
     if is_admin:
         if request.method == 'POST':
             product = request.form['product']
-            try:
-                pass
-            except Exception:
-                pass
+            price = request.form['price']
+            description = request.form['description']
+            image = request.files.getlist('image')[0].filename
+            keyword = request.form['keyword']
+            info = {'name': product, 'count': 800, 'price': price, 'image': f'./static/images/{image}', 'keyword': keyword,
+                    'description': description, 'category': keyword}
+            db.add_to_products(**info)
         products = db.select('products', '*')
         return render_template('admin_panel.html', title='GEEKSHOP', products=products)
+
     else:
         return render_template('404.html', title="404")
 
@@ -110,7 +115,7 @@ def login():
             return render_template('admin.html', title='Sign In', form=form, error=True)
         if login == true_login and password == true_pass:
             cookies = make_response(redirect(url_for('sales')))
-            cookies.set_cookie('login', login, max_age=60*60*24*7)
+            cookies.set_cookie('login', login, max_age=60 * 60 * 24 * 7)
             return cookies
         else:
             return render_template('admin.html', title='Sign In', form=form, error=True)
