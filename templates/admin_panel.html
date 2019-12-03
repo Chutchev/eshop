@@ -67,16 +67,16 @@
     </div>
     <div class="tab-pane fade active show" id="delete">
         <h2>Списать товар</h2>
-        <form>
+        <form method="post">
             <div class="form-group">
                 <label for="exampleSelect1">Example select</label>
-                <select class="form-control" id="exampleSelect1">
+                <select class="form-control" id="exampleSelect1"  name="product">
                     {% for product in products %}
-                    <option>{{product[1]}}</option>
+                    <option>{{product[0]}}</option>
                     {% endfor %}
                 </select>
             </div>
-            <button name='add-button' type="submit" class="btn btn-primary">Добавить товар</button>
+            <input name='add-button' type="submit" class="btn btn-primary" value="Списать товар">
         </form>
     </div>
     <div class="tab-pane fade" id="products">

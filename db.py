@@ -54,8 +54,13 @@ def change_status(name):
 
 
 def add_to_products(**kwargs):
-    print(kwargs)
     with sqlite3.connect("eSHOP.db") as conn:
         conn.execute("INSERT INTO products (name, price, image, category, description)"
                      " VALUES (?, ?, ?, ?, ?)", (kwargs['name'], kwargs['price'], kwargs['image'],
                                                  kwargs['category'], kwargs['description']))
+
+
+def delete_into_products(product):
+    with sqlite3.connect('eSHOP.db') as conn:
+        cur = conn.cursor()
+        cur.execute(f"""DELETE from products where name='{product}'""")

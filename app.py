@@ -54,7 +54,7 @@ def show_product(product_name):
     flag = True
     information = {'title': TITLE, 'info': info, "true_count": flag}
     if request.method == 'POST':
-        price = info[2]
+        price = info[1]
         login = request.cookies.get('login')
         try:
             count = int(request.form['count'])
@@ -68,20 +68,22 @@ def show_product(product_name):
         db.insert_to_shopping_cart(product=product_name, login=login, count=count, cost=cost, price=price)
     return render_template('product.html', **information)
 
-
 @app.route('/adminpanel', methods=['GET', 'POST'])
 def admin_panel():
     is_admin = bool(request.cookies.get('admin'))
     if is_admin:
         if request.method == 'POST':
             product = request.form['product']
-            price = request.form['price']
-            description = request.form['description']
-            image = request.files.getlist('image')[0].filename
-            keyword = request.form['keyword']
-            info = {'name': product, 'count': 800, 'price': price, 'image': f'./static/images/{image}', 'keyword': keyword,
+            try:
+                price = request.form['price']
+                description = request.form['description']
+                image = request.files.getlist('image')[0].filename
+                keyword = request.form['keyword']
+                info = {'name': product, 'count': 800, 'price': price, 'image': f'./static/images/{image}', 'keyword': keyword,
                     'description': description, 'category': keyword}
-            db.add_to_products(**info)
+                db.add_to_products(**info)
+            except Exception:
+                db.delete_into_products(product)
         products = db.select('products', '*')
         return render_template('admin_panel.html', title='GEEKSHOP', products=products)
 
@@ -139,7 +141,7 @@ def pusto():
     if not login:
         return redirect(url_for('login'))
     else:
-        return redirect(url_for('sales'))
+        return redirect(url_for('catalog'))
 
 
 if __name__ == '__main__':
