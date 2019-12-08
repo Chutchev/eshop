@@ -9,6 +9,16 @@
         <h2>{{info[1]}}р/шт</h2>
         <div class="form-group">
             <form method="POST">
+                <div class="form-group" style="width: 5em">
+                    <label for="exampleSelect1">Example select</label>
+                    <select class="form-control" id="exampleSelect1">
+                        <option>XS</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                    </select>
+                </div>
                 {% if true_count %}
                 <input type="text" name="count" class="form-control" placeholder="Количество" id="inputDefault"
                        style="width: 10em; display: inline-block">
